@@ -19,7 +19,7 @@ export class IntroToAwsCdkStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY // destroy the table after cdk stack is destroyed
     });
 
-    const getStuffHandler = new lambda.Function(this, 'GetStuff', {
+    const getStuffHandler = new lambda.Function(this, 'GetStuffs', {
       code: new lambda.AssetCode('lib/lambda'),
       handler: 'get-stuff.handler',
       runtime: lambda.Runtime.NODEJS_10_X,
@@ -37,7 +37,7 @@ export class IntroToAwsCdkStack extends cdk.Stack {
       }
     });
 
-    const api = new RestApi(this, 'MyRestApi');
+    const api = new RestApi(this, 'StuffApi');
     const stuff = api.root.addResource('stuff');
     stuff.addMethod('GET', new LambdaIntegration(getStuffHandler));
     stuff.addMethod('POST', new LambdaIntegration(addStuffHandler));
